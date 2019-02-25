@@ -1,0 +1,126 @@
+import java.util.*;
+class Bank{
+	Scanner sc = new Scanner(System.in);
+	String name ; 
+	String password;
+	float balance;
+	static int ac;
+	int accountnumber;
+	ArrayList<Bank> brr = new ArrayList<Bank>();
+	ArrayList<Integer> acount = new ArrayList<Integer>(); 
+	Bank()
+	{
+		name = null;
+		password = null;
+		balance = 0.0f;
+		accountnumber = ac;
+		ac++;
+			
+	}
+		
+	void OpenAccount()
+	{
+		String name;
+		String password;
+		System.out.println("Enter your name : ");
+		name = sc.nextLine();
+		sc.nextLine();	
+		System.out.println("Enter your password : ");
+		password = sc.nextLine();
+		sc.nextLine();
+		Bank b1 = new Bank();
+		b1.name = name;
+		b1.password = password; 
+		brr.add(b1);
+		acount.add(b1.accountnumber);
+		System.out.println("Your account has been created ");
+		System.out.println("NOTE YOUR ACC NO IS : " + b1.accountnumber);
+		
+				
+	}
+	void Deposit()
+	{
+		System.out.println("please enter your account number");
+		int ac = sc.nextInt();
+		if(acount.contains(ac))
+		{		
+			System.out.println("Enter the money you wanna to deposit");
+			int money = sc.nextInt();
+			for(Bank br : brr ){
+				if(br.accountnumber == ac)
+				{
+					br.balance += money;
+					System.out.println("Deposited");
+					System.out.println("Your amount after updating is  = " + br.balance);
+				}
+					
+			}
+		}
+		else{
+			System.out.println("this acount does not exsits");
+		}
+	}
+	void withdraw()
+	{
+		System.out.println("please enter your account number");
+		int ac = sc.nextInt();
+		if(acount.contains(ac))
+		{	System.out.println("Enter your Password");
+			String pass = sc.nextLine();
+			for(Bank br : brr )
+			{
+				if(br.password.equals(pass))
+				{	
+					for(Bank br1 : brr ){
+					if(br.accountnumber == ac)
+					{	
+						System.out.println("Enter the money you wanna to withdraw");
+						int money = sc.nextInt();
+						if(money > 0 ){
+							br.balance -= money;
+							System.out.println("withdrawn");
+							System.out.println("Your amount after updating is  = " + br.balance);
+						}
+						else{
+							System.out.println("not enough money");
+						}
+						
+					}
+					
+				}
+				/*else{
+					chance++;
+				}*/
+			}
+		}
+		
+	}}		
+	
+
+
+
+
+		
+	public static void main(String argc[])
+	{	Bank b = new Bank();
+		System.out.println(" *** Welcome to SBI Bank *** ");
+		System.out.println("Select Your option");
+		int n=0;
+		do{	System.out.println("1 . Open Account 2. deposit 3.withdraw 4.Exit");
+			 n = b.sc.nextInt();
+			switch(n){
+					case 1: b.OpenAccount();
+						break;
+					case 2: b.Deposit();
+						break;
+					case 3:	b.withdraw();
+						break;
+					case 4: System.out.println("Thank for using");
+						break;
+					default: break;
+			}
+		}while(n != 4);
+		System.out.println("Thanks For Using");
+	}
+
+}
